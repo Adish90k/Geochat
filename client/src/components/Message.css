@@ -1,0 +1,28 @@
+.messagerenderdiv{
+    /* background-color: red; */
+    width: 80%;
+    margin: auto;
+    height: 78vh;
+    padding: 10px;
+}
+.otherusermessage{
+background-color: rgba(128, 128, 128, 0.237);
+margin: 10px;
+width: 300px;
+padding: 4px;
+border-radius: 5px;
+position: relative;
+left: -60px;
+border-top-left-radius: 0px;
+}
+.loggedInusermessage{
+    background-color: rgba(149, 253, 165, 0.539);
+    margin: 3px;
+    width: 300px;
+    padding: 3px;
+    padding-left: 10px;
+    border-radius: 5px;
+    position: relative;
+    left: 60%;
+    border-top-right-radius: 0px;
+}
