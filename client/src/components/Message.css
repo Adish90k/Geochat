@@ -2,8 +2,12 @@
     /* background-color: red; */
     width: 80%;
     margin: auto;
-    height: 78vh;
-    padding: 10px;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 50px;
 }
 .otherusermessage{
 background-color: rgba(128, 128, 128, 0.237);

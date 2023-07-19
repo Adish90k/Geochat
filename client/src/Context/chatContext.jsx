@@ -6,15 +6,16 @@ const ChatProvider = ({ children }) => {
   const [userInfo, setUser] = useState();
   const [notification, setNotification] = useState([]);
   const [chats, setChats] = useState();
+  const [userIdC,setuserIdC] = useState(null);
   const [otherUsercontext,setotherUser] = useState();
  
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("token"));
     // console.log(userInfo);
+    const userIDC = JSON.parse(localStorage.getItem("userId"));
     setUser(userInfo);
-
- 
+    setuserIdC(userIDC);
   }, []);
 
   return (
@@ -29,7 +30,9 @@ const ChatProvider = ({ children }) => {
         chats,
         setChats,
         otherUsercontext,
-        setotherUser
+        setotherUser,
+        userIdC,
+        setuserIdC
       }}
     >
       {children}

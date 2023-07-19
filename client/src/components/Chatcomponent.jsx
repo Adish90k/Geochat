@@ -7,6 +7,7 @@ function Chatcomponent({Ongetallmessages}) {
   const { selectedChat, setSelectedChat, userInfo, chats, setChats,setotherUser,otherUsercontext } =
     ChatState();
 
+    var selectedChatCompare;
 
 
     const getToken = () => {
@@ -60,8 +61,11 @@ function Chatcomponent({Ongetallmessages}) {
     // console.log(chat);
     setSelectedChat(chat);
     setotherUser(otherUser);
+
     // console.log("chat details are:",chat);
+   
     Ongetallmessages(chat);
+    
   }
 
   // async function getAllMessages(chat){

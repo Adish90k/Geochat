@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { all } from "axios";
 import Chatcomponent from "./Chatcomponent";
 import { ChatState } from "../Context/chatContext";
 import "./Chat.css";
 import SingleMessage from "./SingleMessage";
+import io from "socket.io-client";
 
+var socket;
 
 function Chat() {
   const [inputDistance, setInputDistance] = useState(0);
@@ -16,6 +18,10 @@ function Chat() {
   const { selectedChat, setSelectedChat, userInfo, chats, setChats,otherUsercontext,setotherUser } =
     ChatState();
 
+    
+const ENDPOINT = "http://localhost:5000/";
+
+   
   const getToken = () => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -24,6 +30,13 @@ function Chat() {
     }
     return null;
   };
+
+  
+
+
+
+
+
 
   function findistance(users) {
     // console.log("users are:",users);
@@ -144,7 +157,11 @@ async function getAllMessages(chat){
           },
         }
       );
-       setAllmessagesData(response);
+       setAllmessagesData(response.data);
+       socket = io(ENDPOINT);
+      //  console.log(selectedChat);
+      //  selectedChatCompare = chat;
+       socket.emit("join chat",chat._id);
     //  console.log(response);
     } catch (error) {
       console.error(error);
@@ -156,6 +173,10 @@ async function getAllMessages(chat){
 }
 
 
+function  handlesetMessage(newMessage){
+  console.log("New message from chat jsx:",newMessage);
+   setAllmessagesData([...allmessagesData,newMessage]);
+}
 
   return (
     <div className="mainallContainer">
@@ -185,7 +206,7 @@ async function getAllMessages(chat){
             <header>
               <h2>{selectedChat?(otherUsercontext).name:""}</h2>
             </header>
-            {allmessagesData? <SingleMessage allmessegesData={allmessagesData}/>:(
+            {allmessagesData? <SingleMessage allmessegesData={allmessagesData} handlenewMessagereceived={handlesetMessage} />:(
              <h2 className="beforemessagetxt">messages are loading</h2>
             )} 
           </div>):(<h2 className="beforemessagetxt">pleas select a chat</h2>)}

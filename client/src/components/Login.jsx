@@ -48,6 +48,7 @@ const Login = () => {
       // console.log(response.data);
       // localStorage.removeItem("user"); 
       localStorage.setItem("user",JSON.stringify(response.data.name)); 
+      localStorage.setItem("userId",JSON.stringify(response.data._id));
       // localStorage.removeItem("user"); 
       localStorage.setItem("token", JSON.stringify(response.data.token)); 
       setEmail("");
