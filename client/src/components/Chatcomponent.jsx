@@ -68,29 +68,8 @@ function Chatcomponent({Ongetallmessages}) {
     
   }
 
-  // async function getAllMessages(chat){
-  //   const token = getToken();
-  //   // console.log(token);
-  //   if (token) {
-  //     try {
-  //       const response = await axios.get(
-  //         `http://localhost:5000/api/messages/${chat._id}`,
-  //         {
-  //           headers: {
-  //             Authorization: token,
-  //           },
-  //         }
-  //       );
-  //       console.log(response);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   } else {
-  //     console.log(`token doesnot exist`);
-  //   } 
-     
-  // }
-  // console.log(selectedChat);
+  
+
 
   return (
     <>
@@ -98,8 +77,7 @@ function Chatcomponent({Ongetallmessages}) {
         {chats ? (
           chats.map((chat) => {
             const otherUser = chat.users.find(user => user.name !== parsedLoggedInUser);
-            // console.log(otherUser);
-            // console.log("Cadca");
+            
            
             return (
              
@@ -119,7 +97,7 @@ function Chatcomponent({Ongetallmessages}) {
         )}
       </div>
 
-      {/* <div>{selectedChat ? (<></>) : <div></div>}</div> */}
+    
     </>
   );
 }

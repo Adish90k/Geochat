@@ -6,6 +6,22 @@ const geolib = require('geolib');
 const bcrypt = require("bcryptjs");
 dotenv.config();
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const generateToken=(userid)=>{
 
 return jwt.sign({userid},process.env.JWT_SECRET,{
@@ -131,8 +147,7 @@ const getAllusers = async(req,res)=>{
   if(users){
     ans=calculateDistance(users);
    
-    // users[0]. 
-    // console.log(ans);
+  
    
     res.json(ans);
   }

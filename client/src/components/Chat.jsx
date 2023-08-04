@@ -206,7 +206,7 @@ function  handlesetMessage(newMessage){
             <header>
               <h2>{selectedChat?(otherUsercontext).name:""}</h2>
             </header>
-            {allmessagesData? <SingleMessage allmessegesData={allmessagesData} handlenewMessagereceived={handlesetMessage} />:(
+            {allmessagesData? <SingleMessage allmessegesData={allmessagesData} handlenewMessagereceived={handlesetMessage} handlesetAllmessagesData={setAllmessagesData}/>:(
              <h2 className="beforemessagetxt">messages are loading</h2>
             )} 
           </div>):(<h2 className="beforemessagetxt">pleas select a chat</h2>)}

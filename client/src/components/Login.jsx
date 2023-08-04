@@ -8,9 +8,30 @@ const Login = () => {
   const [longitude, setLongitude] = useState("");
   const [latitude, setLatitude] = useState("");
   const navigate = useNavigate();
+
+
+ 
+
+  const handleGetLocationnew = () => {
+    axios
+      .get("https://ipinfo.io?token=d1fd8114b8699f")
+      .then((response) => {
+        console.log(response);
+        const { latitude, longitude } = response.data.loc.split(",");
+        console.log(`latitude:${latitude},longitude:${longitude}`);
+ 
+      })
+      .catch((error) => {
+        console.log("Error getting location from IPinfo.io:", error);
+      });
+  };
+  
+  handleGetLocationnew();
+
+
   const handleGetLocation = () => {
     if (navigator.geolocation) {
-      // alert("called");
+     
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setLongitude(position.coords.longitude);
