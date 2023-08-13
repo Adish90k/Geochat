@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./Register.css";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -7,6 +8,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [longitude, setLongitude] = useState("");
   const [latitude, setLatitude] = useState("");
+  const [error, setError] = useState("");
 
   const handleGetLocation = () => {
     if (navigator.geolocation) {
@@ -28,9 +30,16 @@ const Register = () => {
     e.preventDefault();
 
     if (!longitude || !latitude) {
-      console.log("Latitude or longitude is null. Request not sent.");
+      setError("Latitude or longitude is null. Request not sent.");
       return;
     }
+
+    if (!name || !email || !password) {
+      setError("Please fill in all the required fields.");
+      return;
+    }
+
+    setError("");
 
     try {
       const response = await axios.post("http://localhost:5000/api/user/register", {
@@ -54,9 +63,11 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <div className="register-container">
+     
+      <form className="register-form">
       <h2>Register</h2>
-      <form>
+      {error && <p className="error-message">{error}</p>}
         <div>
           <label>Name:</label>
           <input
@@ -81,12 +92,7 @@ const Register = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="button" onClick={handleGetLocation}>Get Location</button>
-        <button type="submit" onClick={handleSubmit} disabled={!longitude || !latitude}>
-          Register
-        </button>
-      </form>
-      <div>
+        <div>
         <label>Longitude:</label>
         <input type="text" value={longitude} disabled />
       </div>
@@ -94,6 +100,14 @@ const Register = () => {
         <label>Latitude:</label>
         <input type="text" value={latitude} disabled />
       </div>
+        <div id="register-button-controller">
+        <button type="button" onClick={handleGetLocation}>Get Location</button>
+        <button type="submit" onClick={handleSubmit} disabled={!longitude || !latitude}>
+          Register
+        </button>
+        </div>
+      </form>
+      
     </div>
   );
 };

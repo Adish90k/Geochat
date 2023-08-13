@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -7,43 +8,22 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [longitude, setLongitude] = useState("");
   const [latitude, setLatitude] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
-
-
- 
-
-  const handleGetLocationnew = () => {
-    axios
-      .get("https://ipinfo.io?token=d1fd8114b8699f")
-      .then((response) => {
-        console.log(response);
-        const { latitude, longitude } = response.data.loc.split(",");
-        console.log(`latitude:${latitude},longitude:${longitude}`);
- 
-      })
-      .catch((error) => {
-        console.log("Error getting location from IPinfo.io:", error);
-      });
-  };
-  
-  handleGetLocationnew();
-
 
   const handleGetLocation = () => {
     if (navigator.geolocation) {
-     
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setLongitude(position.coords.longitude);
           setLatitude(position.coords.latitude);
-          alert(position.coords.longitude,position.coords.latitude);
+    
         },
         (error) => {
           alert(error.message);
           console.log("Error getting current location:", error);
         }
       );
-
     } else {
       alert("Geolocation is not supported by this browser.");
       console.log("Geolocation is not supported by this browser.");
@@ -53,25 +33,31 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!email || !password) {
+      setError("Email and password are required.");
+      return;
+    }
+
     if (!longitude || !latitude) {
-      console.log("Latitude or longitude is null. Request not sent.");
+      setError("Latitude and longitude are required for registration.");
       return;
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/api/user/login", {
-        email,
-        password,
-        longitude: parseFloat(longitude),
-        latitude: parseFloat(latitude),
-      });
+      const response = await axios.post(
+        "http://localhost:5000/api/user/login",
+        {
+          email,
+          password,
+          longitude: parseFloat(longitude),
+          latitude: parseFloat(latitude),
+        }
+      );
 
-      // console.log(response.data);
-      // localStorage.removeItem("user"); 
-      localStorage.setItem("user",JSON.stringify(response.data.name)); 
-      localStorage.setItem("userId",JSON.stringify(response.data._id));
-      // localStorage.removeItem("user"); 
-      localStorage.setItem("token", JSON.stringify(response.data.token)); 
+      localStorage.setItem("user", JSON.stringify(response.data.name));
+      localStorage.setItem("userId", JSON.stringify(response.data._id));
+
+      localStorage.setItem("token", JSON.stringify(response.data.token));
       setEmail("");
       setPassword("");
       setLongitude("");
@@ -83,9 +69,11 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="login-container">
+    
+      <form className="login-form">
       <h2>Login</h2>
-      <form>
+      {error && <p className="error-message">{error}</p>}
         <div>
           <label>Email:</label>
           <input
@@ -102,19 +90,29 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="button" onClick={handleGetLocation}>Get Location</button>
-        <button type="submit" onClick={handleSubmit} disabled={!longitude || !latitude}>
-          Register
-        </button>
+        <div>
+          <label>Longitude:</label>
+          <input type="text" value={longitude} disabled />
+        </div>
+        <div>
+          <label>Latitude:</label>
+          <input type="text" value={latitude} disabled />
+        </div>
+     
+        <div id="login-button-controller">
+          <button type="button" onClick={handleGetLocation}>
+            Get Location
+          </button>
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            disabled={!longitude || !latitude}
+          >
+            Register
+          </button>
+        </div>
       </form>
-      <div>
-        <label>Longitude:</label>
-        <input type="text" value={longitude} disabled />
-      </div>
-      <div>
-        <label>Latitude:</label>
-        <input type="text" value={latitude} disabled />
-      </div>
+
     </div>
   );
 };

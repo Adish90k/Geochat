@@ -9,10 +9,8 @@ import io from "socket.io-client";
 var socket;
 
 function Chat() {
-  const [inputDistance, setInputDistance] = useState(0);
   const [users, setUsers] = useState(null);
   const [userDistance, setUserDistance] = useState([]);
-  const [messages, setMessage] = useState(null);
   const [allmessagesData,setAllmessagesData] = useState(null); 
   
   const { selectedChat, setSelectedChat, userInfo, chats, setChats,otherUsercontext,setotherUser } =
