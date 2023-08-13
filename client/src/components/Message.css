@@ -10,23 +10,30 @@
     padding: 50px;
 }
 .otherusermessage{
-background-color: rgba(128, 128, 128, 0.237);
+background-color: rgba(12, 12, 12, 0.495);
 margin: 10px;
 width: 300px;
 padding: 4px;
 border-radius: 5px;
 position: relative;
+color: white;
 left: -60px;
 border-top-left-radius: 0px;
 }
 .loggedInusermessage{
-    background-color: rgba(149, 253, 165, 0.539);
-    margin: 3px;
+  
+   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.119);
+   backdrop-filter: blur( 4px );
+   -webkit-backdrop-filter: blur( 4px );
+   border-radius: 10px;
+   border: 1px solid rgba( 255, 255, 255, 0.18 );
+    margin: 7px;
     width: 300px;
-    padding: 3px;
+    color: black;
+    padding: 4px;
     padding-left: 10px;
     border-radius: 5px;
     position: relative;
-    left: 60%;
+    left: 40%;
     border-top-right-radius: 0px;
 }

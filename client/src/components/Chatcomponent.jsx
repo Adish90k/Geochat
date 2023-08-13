@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ChatState } from "../Context/chatContext";
 import axios from "axios";
 import { useEffect } from "react";
+import "./Chat.css";
 
 function Chatcomponent({Ongetallmessages}) {
   const { selectedChat, setSelectedChat, chats, setChats,setotherUser,otherUsercontext } =
@@ -10,14 +11,7 @@ function Chatcomponent({Ongetallmessages}) {
      
 
 
-    const getToken = () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        const parsedTokem = JSON.parse(token);
-        return `Bearer ${parsedTokem}`;
-      }
-      return null;
-    };
+
   
     const loggedInUser = localStorage.getItem("user");
     const parsedLoggedInUser = JSON.parse(loggedInUser);
@@ -39,7 +33,7 @@ function Chatcomponent({Ongetallmessages}) {
           config
         );
         setChats(data);
-        // console.log(data);
+       
       }
     } catch (error) {
       console.log(error);
@@ -51,10 +45,11 @@ function Chatcomponent({Ongetallmessages}) {
   }, []);
 
   let bg = {
-    backgroundColor: "lightgreen",
+    backgroundColor: "rgb(9, 42, 95)",
+    color:"white"
   };
   let bg2 = {
-    backgroundColor: "lightblue",
+    backgroundColor: "transparent",
   };
 
   function handleChat(chat,otherUser) {
@@ -69,7 +64,9 @@ function Chatcomponent({Ongetallmessages}) {
 
   return (
     <>
-      <div>
+    
+      <div className="mainchatallContainer">
+      <h3 id="chat-heading-main">Chats</h3>
         {chats ? (
           chats.map((chat) => {
             const otherUser = chat.users.find(user => user.name !== parsedLoggedInUser);

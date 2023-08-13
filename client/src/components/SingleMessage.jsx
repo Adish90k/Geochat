@@ -116,14 +116,16 @@ function SingleMessage({
           <p>send a message</p>
         )}
       </div>
-
+    <div className="message-sendbtn-inputsent-container">
       <input
         type="text"
         placeholder="Enter your message here"
         onChange={(ev) => typinghandler(ev)}
         value={newMessage}
+        id="Send-message-input"
       />
       <button onClick={() => handlesendMessage()}>send</button>
+      </div>
     </div>
   );
 }

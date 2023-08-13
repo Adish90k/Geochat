@@ -136,7 +136,7 @@ const ENDPOINT = "http://localhost:5000/";
     //  return userId;
   }
 
-  let count = 0;
+   
 
 
 ///messages
@@ -178,21 +178,24 @@ function  handlesetMessage(newMessage){
 
   return (
     <div className="mainallContainer">
-      <div className="mainusersContainer">
+      <div className="mainallusersContainer">
+        <h3 id="users-main-heading">Users</h3>
         {userDistance &&
           userDistance.map((elem) => (
-            <div key={count}>
-              <p>
-                {elem.otherUser}:{elem.distanceBetweenUsers}
-              </p>
+            <div id="mainusersContainer">
+              <div>
+                <p>{elem.otherUser}</p>
+                <span>
+                {elem.distanceBetweenUsers}km
+                </span>
+              </div>
               <button onClick={() => handlechat(elem.otherUserId)}>
-                message
+                m
               </button>
-              {count++}
             </div>
           ))}
       </div>
-
+      <div className="main-Chat-Messages-Container">
       <div className="mainchatsContainer">
         <Chatcomponent Ongetallmessages={getAllMessages}/>
       </div>
@@ -209,6 +212,8 @@ function  handlesetMessage(newMessage){
             )} 
           </div>):(<h2 className="beforemessagetxt">pleas select a chat</h2>)}
           </>
+      </div>
+              
       </div>
     </div>
   );
