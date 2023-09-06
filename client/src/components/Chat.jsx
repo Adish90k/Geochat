@@ -127,6 +127,7 @@ const ENDPOINT = "http://localhost:5000/";
       }
       setSelectedChat(data);
     } catch (error) {
+      console.log("CAlled");
       console.log(error);
     }
   };
@@ -138,10 +139,7 @@ const ENDPOINT = "http://localhost:5000/";
 
    
 
-
-///messages
-
-
+ 
 async function getAllMessages(chat){
   const token = getToken();
   // console.log(token);
@@ -205,7 +203,7 @@ function  handlesetMessage(newMessage){
           (
           <div>
             <header>
-              <h2>{selectedChat?(otherUsercontext).name:""}</h2>
+            <h2>{selectedChat && otherUsercontext ? otherUsercontext.name : ""}</h2>
             </header>
             {allmessagesData? <SingleMessage allmessegesData={allmessagesData} handlenewMessagereceived={handlesetMessage} handlesetAllmessagesData={setAllmessagesData}/>:(
              <h2 className="beforemessagetxt">messages are loading</h2>

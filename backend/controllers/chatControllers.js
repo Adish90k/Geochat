@@ -22,7 +22,7 @@ const accessChat = asyncHandler(async(req,res)=>{
         path:"latestMessage.sender",
         select:"name email",
     })
-    
+    console.log(isChat);
     if(isChat.length>0){
         res.send(isChat[0]);
     } 

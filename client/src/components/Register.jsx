@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 import "./Register.css";
 
 const Register = () => {
@@ -9,7 +10,7 @@ const Register = () => {
   const [longitude, setLongitude] = useState("");
   const [latitude, setLatitude] = useState("");
   const [error, setError] = useState("");
-
+  const navigate = useNavigate();
   const handleGetLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -50,6 +51,7 @@ const Register = () => {
         latitude: parseFloat(latitude),
       });
 
+
       console.log(response.data);
 
       setName("");
@@ -57,6 +59,7 @@ const Register = () => {
       setPassword("");
       setLongitude("");
       setLatitude("");
+      navigate('/login');
     } catch (error) {
       console.log(error.response.data);
     }
